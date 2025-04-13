@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem; // 새로운 Input System 네임스페이스
 
 public class O_ReviewCam : MonoBehaviour
 {
@@ -17,17 +18,20 @@ public class O_ReviewCam : MonoBehaviour
     private void Update()
     {
         transform.Rotate(Vector3.up * speed * Time.deltaTime);
-    
-        if(Input.GetKeyDown(KeyCode.LeftArrow)){
+
+        if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
+        {
             ActivateNewMat(currIndx - 1);
         }
-        if(Input.GetKeyDown(KeyCode.RightArrow)){
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
+        {
             ActivateNewMat(currIndx + 1);
         }
     }
 
-    private void ActivateNewMat(int newIndx){
-        if(newIndx < 0 || newIndx >= mats.Length)
+    private void ActivateNewMat(int newIndx)
+    {
+        if (newIndx < 0 || newIndx >= mats.Length)
             return;
         customImageEffect.imageEffect = mats[newIndx];
         currIndx = newIndx;
