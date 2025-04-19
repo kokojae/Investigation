@@ -76,7 +76,7 @@ public class Inventory : MonoBehaviour
 
     public void RemoveItem(InventoryItemData item)
     {
-        if (selectedItemID == item.GetInstanceID())
+        if (selectedItemID == item.ID)
         {
             selectedItemID = 0;
         }
@@ -90,7 +90,7 @@ public class Inventory : MonoBehaviour
 
     public void SelectItem(InventoryItemData item)
     {
-        selectedItemID = item.GetInstanceID();
+        selectedItemID = item.ID;
 
         CallSelectedChanged();
     }
