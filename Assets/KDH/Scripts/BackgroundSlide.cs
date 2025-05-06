@@ -14,6 +14,8 @@ public class BackgroundSlide : MonoBehaviour
     [SerializeField] private bool isSliding;
     [SerializeField] private int slideDirection;
 
+    [SerializeField] private bool isCurrent;
+
     private void Start()
     {
         screenSize = backgrounds[cameraPositionIndex].transform.localScale;
@@ -25,10 +27,15 @@ public class BackgroundSlide : MonoBehaviour
             backgroundPositions[i] = new Vector3 (mainCamera.transform.localPosition.x + (screenSize.x * (i - 1)), mainCamera.transform.localPosition.y);
             backgrounds[i].transform.localPosition = backgroundPositions[i];
         }
+
+        RepositionBackground();
     }
 
     private void Update()
     {
+        if (!isCurrent)
+            return;
+
         if (!isSliding)
         {
             if (Input.GetKeyDown(KeyCode.A))
@@ -61,22 +68,27 @@ public class BackgroundSlide : MonoBehaviour
             screenIndex = nextScreenIndex;
             isSliding = false;
             slideDirection = 0;
-            
-            for (int i = 0; i < backgrounds.Length; i++)
-            {
-                int si = screenIndex + i;
-                    
-                si = (int)Mathf.Repeat(si, backgrounds.Length);
-                    
-                int positionIndex = cameraPositionIndex + i;
 
-                if (positionIndex >= backgrounds.Length)
-                    positionIndex = positionIndex - backgrounds.Length;
-                if (positionIndex < 0)
-                    positionIndex = positionIndex + backgrounds.Length;
-                    
-                backgrounds[si].transform.localPosition = backgroundPositions[positionIndex];
-            }
+            RepositionBackground();
+        }
+    }
+
+    private void RepositionBackground()
+    {
+        for (int i = 0; i < backgrounds.Length; i++)
+        {
+            int si = screenIndex + i;
+
+            si = (int)Mathf.Repeat(si, backgrounds.Length);
+
+            int positionIndex = cameraPositionIndex + i;
+
+            if (positionIndex >= backgrounds.Length)
+                positionIndex = positionIndex - backgrounds.Length;
+            if (positionIndex < 0)
+                positionIndex = positionIndex + backgrounds.Length;
+
+            backgrounds[si].transform.localPosition = backgroundPositions[positionIndex];
         }
     }
 }
