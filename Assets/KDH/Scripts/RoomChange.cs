@@ -5,11 +5,13 @@ public class RoomChange : MonoBehaviour
 {
     [SerializeField] GameObject mainCamera;
     [SerializeField] private GameObject[] rooms;
+    [SerializeField] private ScreenTransition levelLoader;
     public int currentRoomIndex;
 
     [SerializeField] private float roomSpace;
     private Vector3[] roomPositions;
     private Vector3[] cameraPositions;
+    private int nextRoomIndex;
 
     private void Start()
     {
@@ -22,15 +24,22 @@ public class RoomChange : MonoBehaviour
             cameraPositions[i] = new Vector3(mainCamera.transform.position.x, 0 - roomSpace * i, mainCamera.transform.position.z);
             rooms[i].transform.position = roomPositions[i];
         }
-
-        MoveCamera(0);
+        levelLoader.gameObject.SetActive(false);
+        nextRoomIndex = 0;
+        MoveCamera();
     }
 
-    public void MoveCamera(int nextRoomIndex)
+    public void RoomChangeStart(int roomIndex)
+    {
+        nextRoomIndex = roomIndex;
+        levelLoader.gameObject.SetActive(true);
+    }
+
+    public void MoveCamera()
     {
         if (nextRoomIndex >= rooms.Length || nextRoomIndex < 0)
         {
-            Debug.Log("´ÙÀ½ ·ë ÀÎµ¦½º°¡ ¹üÀ§¸¦ ¹þ¾î³²");
+            Debug.Log("ë£¸ ì¸ë±ìŠ¤ ì´ˆê³¼ ì˜¤ë¥˜");
             return;
         }
 
@@ -56,12 +65,12 @@ public class RoomChangeEditor : Editor
         base.OnInspectorGUI();
 
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.PrefixLabel("Ä¿½ºÅÒ ¿¡µðÅÍ");
+        EditorGUILayout.PrefixLabel("ì»¤ìŠ¤í…€ ì¸í„°íŽ˜ì´ìŠ¤");
         EditorGUILayout.EndHorizontal();
-        nextRoomIndex = EditorGUILayout.IntField("ÀÌµ¿ÇÒ ¹æ ÀÎµ¦½º", nextRoomIndex);
+        nextRoomIndex = EditorGUILayout.IntField("ë£¸ ì¸ë±ìŠ¤", nextRoomIndex);
 
-        if (GUILayout.Button("ÀÌµ¿"))
-            roomChange.MoveCamera(nextRoomIndex);
+        if (GUILayout.Button("ì´ë™"))
+            roomChange.RoomChangeStart(nextRoomIndex);
 
         if (GUI.changed)
             EditorUtility.SetDirty(roomChange);
