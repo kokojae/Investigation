@@ -15,4 +15,4 @@ MonoBehaviour:
   itemID: 1001
   itemName: Test Item 1
   itemSprite: {fileID: 21300000, guid: 8db51f5e099d8f840be7ea321abd8c9f, type: 3}
-  item3DPrefab: {fileID: 0}
+  item3DPrefab: {fileID: 8239780308547987402, guid: c5be7f6b03c3bfa42aa0ec6da3a70197, type: 3}
