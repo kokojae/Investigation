@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1151465124091913077}
   - component: {fileID: 1815819047250830008}
   - component: {fileID: 4442840963823262846}
-  - component: {fileID: 7394430684567200749}
+  - component: {fileID: 7873924778318121401}
   m_Layer: 0
   m_Name: Computer
   m_TagString: Untagged
@@ -77,7 +77,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.09, y: 0.83, z: 0.01}
   m_Center: {x: 0, y: 0.88, z: -0.18}
---- !u!114 &7394430684567200749
+--- !u!114 &7873924778318121401
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,18 +86,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6582967052461427288}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4613b82a1424fae469145790152f93c8, type: 3}
+  m_Script: {fileID: 11500000, guid: f72c0a1772f3fdf49b2b044a82cb7258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sceneObjectID: 20010
   sceneObjectName: Computer
-  isInteractible: 0
+  isInteractible: 1
   isRemoveAfterInteractible: 0
   objectAfterInteraction: {fileID: 0}
   itemsObtainedAfterInteraction: []
   itemRequiredForInteraction: {fileID: 0}
   requiredForZoom: {fileID: 1815819047250830008}
   activeAfterZoom: {fileID: 4442840963823262846}
+  isZoomInteract: 1
+  changedMat: {fileID: 2100000, guid: 5257ff117478739478a523f0c16be035, type: 2}
+  MonitorRenderer: {fileID: 4160384127735912440}
 --- !u!1001 &4837157504762402819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,6 +214,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0a9b1e8ede82a0499a821b6966381cd, type: 3}
+--- !u!23 &4160384127735912440 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8835409689826365435, guid: c0a9b1e8ede82a0499a821b6966381cd, type: 3}
+  m_PrefabInstance: {fileID: 4837157504762402819}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4948242551477321704 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c0a9b1e8ede82a0499a821b6966381cd, type: 3}

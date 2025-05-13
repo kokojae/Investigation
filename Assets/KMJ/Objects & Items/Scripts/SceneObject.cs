@@ -15,18 +15,10 @@ public class SceneObject : MonoBehaviour
     [SerializeField] private InventoryItemData itemRequiredForInteraction = null;
     [SerializeField] private Collider requiredForZoom = null;
     [SerializeField] private Collider activeAfterZoom = null;
+    [SerializeField] private bool isZoomInteract = false;
+    [SerializeField] private bool isZoom = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    virtual protected bool ZoomInteract() { return false; }
 
     void OnMouseDown()
     {
@@ -35,6 +27,16 @@ public class SceneObject : MonoBehaviour
         {
             Debug.Log("상호작용 불가능 오브젝트");
             return;
+        }
+
+        // 현재 줌이 되어있고, 줌 이후의 인터렉션이 따로 구현되어야 한다면
+        if (isZoom && isZoomInteract)
+        {
+            // 만약 상호작용 이후 이후의 실행이 필요 없다면 종료
+            if (ZoomInteract())
+            {
+                return;
+            }
         }
 
         // 상호작용에 필요한 오브젝트가 있다면
@@ -94,6 +96,7 @@ public class SceneObject : MonoBehaviour
         Debug.Log("오브젝트 확대됨");
         SafetyEnabled(requiredForZoom, false);
         SafetyEnabled(activeAfterZoom, true);
+        isZoom = true;
     }
 
     public void ObjectUnZoom()
@@ -101,5 +104,6 @@ public class SceneObject : MonoBehaviour
         Debug.Log("오브젝트 확대 취소됨");
         SafetyEnabled(activeAfterZoom, false);
         SafetyEnabled(requiredForZoom, true);
+        isZoom = false;
     }
 }
