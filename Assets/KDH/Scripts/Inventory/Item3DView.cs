@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class Item3DView : MonoBehaviour
 {
+    [SerializeField] OrbitCamera orbitCamera;
     [SerializeField] private Transform viewer;
     [SerializeField] Transform itemsParent;
+    [SerializeField] RoomChange roomChange;
     private Inventory inventory;
     private GameObject currentViewingItem;
     private int currentViewingItemID;
+    private bool is3DViewMode;
 
     private void Start()
     {
@@ -37,13 +40,23 @@ public class Item3DView : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && is3DViewMode)
+        {
+            is3DViewMode = false;
+            orbitCamera.UnActive();
+            roomChange.MoveCamera();
+        }
     }
 
     private void Instantiate3DViewItem(GameObject item)
     {
+        is3DViewMode = true;
+        
         currentViewingItem =
-            Instantiate(item, Vector3.zero, Quaternion.identity, viewer);
-
+            Instantiate(item, viewer.position, Quaternion.identity, viewer);
+        orbitCamera.target = currentViewingItem.transform;
+        orbitCamera.ResetTransform();
         currentViewingItemID = inventory.selectedItemID;
     }
 }

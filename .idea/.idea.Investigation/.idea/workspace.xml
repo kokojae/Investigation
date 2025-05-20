@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="5da434fa-5138-40a9-824e-60c68f6ec982" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Investigation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Investigation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KMJ/Objects &amp; Items/Prefabs/Items/Test Item 1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KMJ/Objects &amp; Items/Prefabs/Items/Test Item 1.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KMJ/Objects &amp; Items/Prefabs/Items/Test Item 2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KMJ/Objects &amp; Items/Prefabs/Items/Test Item 2.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/KMJ/Objects &amp; Items/Scenes/Object Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KMJ/Objects &amp; Items/Scenes/Object Test.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/KDH/Scripts/BackgroundSlide.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KDH/Scripts/BackgroundSlide.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/KDH/Scripts/Inventory/Item3DView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KDH/Scripts/Inventory/Item3DView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/KDH/Scripts/OrbitCamera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KDH/Scripts/OrbitCamera.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/KDH/Scripts/RoomChange.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KDH/Scripts/RoomChange.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/3DViewTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/3DViewTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +40,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Object3DVeiw&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -104,6 +107,7 @@
       <workItem from="1744548251612" duration="3546000" />
       <workItem from="1747131038523" duration="5468000" />
       <workItem from="1747154768189" duration="653000" />
+      <workItem from="1747749298231" duration="2373000" />
     </task>
     <servers />
   </component>

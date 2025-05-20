@@ -14,9 +14,14 @@ public class BackgroundSlide : MonoBehaviour
     [SerializeField] private bool isSliding;
     [SerializeField] private int slideDirection;
 
-    [SerializeField] private bool isCurrent;
+    private bool isCurrent;
 
     private void Start()
+    {
+        Init();
+    }
+
+    private void Init()
     {
         screenSize = backgrounds[cameraPositionIndex].transform.localScale;
         
@@ -90,5 +95,16 @@ public class BackgroundSlide : MonoBehaviour
 
             backgrounds[si].transform.localPosition = backgroundPositions[positionIndex];
         }
+    }
+
+    public void SetCurrentRoom()
+    {
+        isCurrent = true;
+        Init();
+    }
+
+    public void DeactiveRoom()
+    {
+        isCurrent = false;
     }
 }

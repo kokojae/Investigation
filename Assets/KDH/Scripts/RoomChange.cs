@@ -4,7 +4,7 @@ using UnityEngine;
 public class RoomChange : MonoBehaviour
 {
     [SerializeField] GameObject mainCamera;
-    [SerializeField] private GameObject[] rooms;
+    [SerializeField] private BackgroundSlide[] rooms;
     [SerializeField] private ScreenTransition levelLoader;
     public int currentRoomIndex;
 
@@ -42,9 +42,10 @@ public class RoomChange : MonoBehaviour
             Debug.Log("룸 인덱스 초과 오류");
             return;
         }
-
+        rooms[currentRoomIndex].DeactiveRoom();
         currentRoomIndex = nextRoomIndex;
         mainCamera.transform.position = cameraPositions[currentRoomIndex];
+        rooms[currentRoomIndex].SetCurrentRoom();
     }
 }
 
