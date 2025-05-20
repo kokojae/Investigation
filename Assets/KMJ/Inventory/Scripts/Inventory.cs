@@ -95,7 +95,7 @@ public class Inventory : MonoBehaviour
         CallSelectedChanged();
     }
 
-    public void ClearInvectory()
+    public void ClearInventory()
     {
         items.Clear();
         

@@ -59,7 +59,7 @@ public class InventoryTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            inventory.ClearInvectory();
+            inventory.ClearInventory();
         }
     }
 

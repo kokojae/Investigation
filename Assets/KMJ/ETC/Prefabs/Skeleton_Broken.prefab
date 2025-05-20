@@ -49,14 +49,14 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
   m_Height: 6.8
   m_Direction: 1
-  m_Center: {x: 0, y: -1.35, z: 0}
+  m_Center: {x: 0, y: -2.96, z: 0}
 --- !u!114 &6784662612884489077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,11 +72,12 @@ MonoBehaviour:
   sceneObjectID: 20006
   sceneObjectName: Skeleton
   isInteractible: 1
-  ObjectIDAfterInteraction: -1
-  ItemsObtainedAfterInteraction:
-  - {fileID: 11400000, guid: fc0fe15f27df25e4f817f97eec232136, type: 2}
-  - {fileID: 11400000, guid: b23a8bb360c16884ea0a739bb5411008, type: 2}
-  ItemIDRequiredForInteraction: -1
+  isRemoveAfterInteractible: 0
+  objectAfterInteraction: {fileID: 0}
+  itemsObtainedAfterInteraction: []
+  itemRequiredForInteraction: {fileID: 0}
+  requiredForZoom: {fileID: 0}
+  activeAfterZoom: {fileID: 0}
 --- !u!1001 &5876127304412302763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -115,7 +116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3d650ee2186bc6d439353e218152f5ad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.63
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3d650ee2186bc6d439353e218152f5ad, type: 3}
       propertyPath: m_LocalPosition.z
