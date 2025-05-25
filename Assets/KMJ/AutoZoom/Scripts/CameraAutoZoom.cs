@@ -41,12 +41,18 @@ public class CameraAutoZoom : MonoBehaviour
                 zoomObject = hit.collider.GetComponent<SceneObject>();
                 if (zoomObject != null)
                 {
+                    if (!zoomObject.IsCanZoom)
+                    {
+                        Debug.Log("오브젝트가 IsCanZoom이 아님!");
+                        return;
+                    }
+
                     FocusBounds(hit.collider.bounds);
                     zoomObject.ObjectZoom();
                 }
                 else
                 {
-                    Debug.LogError("줌된 오브젝트가 SceneObject가 아님!");
+                    Debug.LogError("줌할 오브젝트가 SceneObject가 아님!");
                 }
             }
         }

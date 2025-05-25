@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class SceneObject : MonoBehaviour
@@ -8,78 +6,105 @@ public class SceneObject : MonoBehaviour
     public int ID { get { return sceneObjectID; } }
     [SerializeField] private string sceneObjectName = "Object Name";
     public string ObjectName { get { return sceneObjectName; } }
-    [SerializeField] private bool isInteractible = false;
+
     [SerializeField] private bool isRemoveAfterInteractible = false;
     [SerializeField] private GameObject objectAfterInteraction = null;
     [SerializeField] private InventoryItemData[] itemsObtainedAfterInteraction;
     [SerializeField] private InventoryItemData itemRequiredForInteraction = null;
     [SerializeField] private Collider requiredForZoom = null;
-    [SerializeField] private Collider activeAfterZoom = null;
-    [SerializeField] private bool isZoomInteract = false;
-    [SerializeField] private bool isZoom = false;
-
-    virtual protected bool ZoomInteract() { return false; }
-
-    void OnMouseDown()
+    public bool IsCanZoom
     {
-        // 상호작용 불가능 오브젝트라면 종료
-        if (!isInteractible)
+        get
         {
-            Debug.Log("상호작용 불가능 오브젝트");
+            if (requiredForZoom == null) return false;
+            else return true;
+        }
+    }
+
+
+    private bool isZoom = false;
+    protected bool IsZoom { get { return isZoom; } }
+
+    // 중복 실행 방지 플래그
+    private bool hasResolved = false;
+
+    /// <summary>퍼즐이 해결되었음을 부모에 알리고 후처리</summary>
+    public virtual void ResolvePuzzle()
+    {
+        if (hasResolved) return;
+        hasResolved = true;
+
+        GrantRewards();
+        SpawnObjectAfterInteraction();
+        CleanupObject();
+    }
+
+    protected void DefaulfClickInterection()
+    {
+        HandleItemRequirement();
+        ResolvePuzzle();
+    }
+
+    /// <summary>아이템 요구 사항 검사</summary>
+    protected bool HandleItemRequirement()
+    {
+        if (itemRequiredForInteraction == null)
+            return true;
+
+        Debug.Log("상호작용에 필요한 오브젝트: " + itemRequiredForInteraction.ItemName);
+        if (Inventory.instance.selectedItemID != itemRequiredForInteraction.ID)
+        {
+            Debug.Log("지금 플레이어가 선택한 오브젝트가 상호작용에 필요한 오브젝트가 아님");
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>아이템 지급 처리</summary>
+    protected void GrantRewards()
+    {
+        if (itemsObtainedAfterInteraction.Length == 0)
+        {
+            Debug.Log("지급할 아이템 없음");
             return;
         }
 
-        // 현재 줌이 되어있고, 줌 이후의 인터렉션이 따로 구현되어야 한다면
-        if (isZoom && isZoomInteract)
+        if (Inventory.instance == null)
         {
-            // 만약 상호작용 이후 이후의 실행이 필요 없다면 종료
-            if (ZoomInteract())
-            {
-                return;
-            }
+            Debug.Log("인벤토리 존재 하지 않음");
+            return;
         }
 
-        // 상호작용에 필요한 오브젝트가 있다면
-        if (itemRequiredForInteraction != null)
+        foreach (var item in itemsObtainedAfterInteraction)
         {
-            Debug.Log("상호작용에 필요한 오브젝트: " + itemRequiredForInteraction.ItemName);
-            // 지금 플레이어가 선택한 오브젝트가 상호작용에 필요한 오브젝트가 아니라면 종료
-            if (Inventory.instance.selectedItemID != itemRequiredForInteraction.ID)
-            {
-                Debug.Log("지금 플레이어가 선택한 오브젝트가 상호작용에 필요한 오브젝트가 아님");
-                return;
-            }
+            Debug.Log("아이템 지급: " + item.ItemName);
+            Inventory.instance.AddItem(item);
         }
+    }
 
-        // 상호 작용 후 지급 할 아이템을 지급
-        for (int i = 0; i < itemsObtainedAfterInteraction.Length; i++)
-        {
-            if (Inventory.instance != null)
-            {
-                Debug.Log("아이템 지급");
-                Inventory.instance.AddItem(itemsObtainedAfterInteraction[i]);
-            }
-            else
-            {
-                Debug.Log("인벤토리 존재 하지 않음");
-            }
-        }
+    /// <summary>상호작용 후 오브젝트 생성</summary>
+    protected void SpawnObjectAfterInteraction()
+    {
+        if (objectAfterInteraction == null)
+            return;
 
-        // 상호작용 후 오브젝트가 있다면 생성
+        Debug.Log("상호작용 후 오브젝트 생성");
+        Instantiate(objectAfterInteraction, transform.position, transform.rotation);
+    }
+
+    /// <summary>오브젝트 정리(삭제) 처리</summary>
+    protected void CleanupObject()
+    {
+        // 생성된 오브젝트를 위해 게임오브젝트 삭제
         if (objectAfterInteraction != null)
         {
-            Debug.Log("상호작용 후 오브젝트 생성");
-            Instantiate(objectAfterInteraction, transform.position, transform.rotation);
-            // 오브젝트 겹침 방지를 위해 삭제
-            Destroy(this);
-            // 중복 삭제를 막기 위한 함수 종료
+            Destroy(gameObject);
             return;
         }
 
-        // 상호작용이 끝난 오브젝트 삭제가 필요한 경우 삭제
         if (isRemoveAfterInteractible)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
@@ -91,18 +116,16 @@ public class SceneObject : MonoBehaviour
         }
     }
 
-    public void ObjectZoom()
+    public virtual void ObjectZoom()
     {
         Debug.Log("오브젝트 확대됨");
         SafetyEnabled(requiredForZoom, false);
-        SafetyEnabled(activeAfterZoom, true);
         isZoom = true;
     }
 
-    public void ObjectUnZoom()
+    public virtual void ObjectUnZoom()
     {
         Debug.Log("오브젝트 확대 취소됨");
-        SafetyEnabled(activeAfterZoom, false);
         SafetyEnabled(requiredForZoom, true);
         isZoom = false;
     }
